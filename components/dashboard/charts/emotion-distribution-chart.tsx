@@ -3,6 +3,16 @@
 import { useEmotion } from "@/context/emotion-context"
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts"
 
+const EMOTION_COLORS: Record<string, string> = {
+  sadness: "#6366f1",
+  neutral: "#94a3b8",
+  surprise: "#f59e0b",
+  disgust: "#84cc16",
+  joy: "#22c55e",
+  fear: "#a855f7",
+  anger: "#ef4444",
+}
+
 const COLORS = [
   "hsl(var(--chart-1))",
   "hsl(var(--chart-2))",
@@ -39,8 +49,8 @@ export function EmotionDistributionChart() {
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie data={chartData} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#8884d8" dataKey="value">
-            {chartData.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={EMOTION_COLORS[entry.name.toLowerCase()] || COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip

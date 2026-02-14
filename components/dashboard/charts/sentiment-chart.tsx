@@ -14,26 +14,26 @@ export function SentimentChart() {
   return (
     <div className="h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-          <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-          <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+        <LineChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
+          <YAxis domain={[0, 100]} stroke="#6b7280" fontSize={12} />
           <Tooltip
             contentStyle={{
-              backgroundColor: "hsl(var(--card))",
-              border: "1px solid hsl(var(--border))",
+              backgroundColor: "#ffffff",
+              border: "1px solid #e5e7eb",
               borderRadius: "8px",
-              color: "hsl(var(--foreground))",
+              color: "#111827",
             }}
           />
-          <ReferenceLine y={50} stroke="hsl(var(--muted-foreground))" strokeDasharray="5 5" label="Neutral" />
+          <ReferenceLine y={50} stroke="#9ca3af" strokeDasharray="5 5" label="Neutral" />
           <Line
             type="monotone"
             dataKey="score"
-            stroke="hsl(var(--primary))"
+            stroke="#0ea5e9"
             strokeWidth={3}
-            dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 6 }}
-            activeDot={{ r: 8, fill: "hsl(var(--primary))" }}
+            dot={{ fill: "#0ea5e9", r: 5 }}
+            activeDot={{ r: 8, fill: "#0ea5e9" }}
           />
         </LineChart>
       </ResponsiveContainer>

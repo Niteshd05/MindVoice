@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Upload, Mic, Loader2, Play, Square } from "lucide-react"
 import { AnalysisResults } from "@/components/dashboard/analysis-results"
+import { API_ENDPOINTS } from "@/lib/api-config"
 
 interface ApiResponse {
   transcription: string
@@ -115,16 +116,16 @@ export function AnalyzeSection() {
       formData.append("choice", "1")
       formData.append("person", "doctor")
 
-      const response = await fetch("https://codersmitramandal.shop/ayc/uploadaudio/", {
+      const response = await fetch(API_ENDPOINTS.uploadAudio, {
         method: "POST",
         body: formData,
       })
 
-      if (!response.ok) {
-        throw new Error("Analysis failed. Please try again.")
-      }
+      const data = await response.json() as ApiResponse
 
-      const data: ApiResponse = await response.json()
+      if (!response.ok) {
+        throw new Error((data as any)?.error || "Analysis failed. Please try again.")
+      }
       setAnalysisResult(data)
 
       // Aggregate all emotions from chunks
