@@ -2,14 +2,15 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { ThemeProvider } from "@/lib/theme-context"
 import "./globals.css"
 
 const _inter = Inter({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "MindVoice - Audio-First Emotion Detection",
-  description: "Detect and understand emotions through voice analysis with AI-powered insights",
+  title: "MindVoice - AI-Powered Mental Health & Psychometric Testing",
+  description: "Your personalized mental wellness companion with adaptive psychometric testing, emotion detection, and dynamic theme-based chat interface",
   generator: "v0.app",
   icons: {
     icon: [
@@ -36,10 +37,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
-        {children}
-        <Analytics />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`font-sans antialiased theme-warm-earth`}>
+        <ThemeProvider>
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )
