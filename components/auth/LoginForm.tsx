@@ -13,26 +13,26 @@ export function LoginForm({ onSuccess, setLoading }: LoginFormProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Login failed');
+      if (!email || !password) {
+        throw new Error('Please enter email and password');
       }
 
-      // Store user session
-      const data = await response.json();
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // Validate stored user credentials
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find((u: any) => u.email === email && u.password === password);
+
+      if (!user) {
+        throw new Error('Invalid email or password');
+      }
+
+      // Store active session
+      localStorage.setItem('user', JSON.stringify({ email: user.email, id: user.id }));
       onSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');

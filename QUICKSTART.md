@@ -22,25 +22,7 @@ npm install
 yarn install
 ```
 
-### 3. Set Up Environment Variables
-```bash
-cp .env.example .env.local
-```
-
-The `.env.local` file contains:
-- `DATABASE_URL` - SQLite database path (default: dev.db)
-- `JWT_SECRET` - Authentication token secret
-- `NODE_ENV` - Environment setting
-- Other optional configuration variables
-
-### 4. Initialize the Database
-```bash
-npx prisma migrate dev
-```
-
-This creates the SQLite database and runs migrations.
-
-### 5. Start the Development Server
+### 3. Start the Development Server
 ```bash
 npm run dev
 ```
@@ -64,11 +46,13 @@ Visit `http://localhost:3000` in your browser.
 ## Testing the App
 
 ### Demo Credentials
-Use any email/password combination during signup:
+Sign up with any email and password (stored locally):
 ```
 Email: test@example.com
-Password: Test123!@#
+Password: Test123
 ```
+
+Create a new account by clicking "Sign Up" - credentials are saved in your browser's localStorage.
 
 ### Test the Psychometric Questions
 Click through the 10 questions to see how the scoring system works:

@@ -85,15 +85,11 @@ Four distinct theme personas that adapt to user assessment:
 │       └── Sidebar.tsx          # Chat sidebar with theme selector
 │
 ├── lib/
-│   ├── auth.ts                  # Password hashing & verification
-│   ├── prisma.ts                # Database client
 │   ├── theme-context.tsx        # Theme management
 │   └── psychometric-questions.ts # Test questions & logic
 │
-├── prisma/
-│   └── schema.prisma            # Database schema
-│
-└── middleware.ts                # Auth middleware for protected routes
+└── hooks/
+    └── useAnimation.ts          # Custom animation hooks
 ```
 
 ## Technology Stack
@@ -102,8 +98,8 @@ Four distinct theme personas that adapt to user assessment:
 - **3D Graphics**: Three.js + React Three Fiber
 - **Animations**: Framer Motion
 - **UI Components**: Shadcn/ui with custom clay morphism styling
-- **Database**: Prisma ORM with SQLite
-- **Authentication**: Custom JWT-based with bcrypt
+- **3D Graphics**: Three.js with React Three Fiber
+- **Authentication**: Client-side localStorage (no database)
 - **Styling**: Tailwind CSS v4
 - **Forms**: React Hook Form + Zod validation
 
@@ -111,7 +107,7 @@ Four distinct theme personas that adapt to user assessment:
 
 ### Prerequisites
 - Node.js 18+
-- npm or yarn
+- npm or yarn or pnpm
 
 ### Installation
 
@@ -124,19 +120,11 @@ cd MindVoice
 2. Install dependencies
 ```bash
 npm install
+# or
+pnpm install
 ```
 
-3. Set up environment variables
-```bash
-cp .env.local.example .env.local
-```
-
-4. Initialize the database
-```bash
-npx prisma migrate dev
-```
-
-5. Run the development server
+3. Run the development server
 ```bash
 npm run dev
 ```

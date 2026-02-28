@@ -15,7 +15,7 @@ export function SignupForm({ onSuccess, setLoading }: SignupFormProps) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -24,22 +24,31 @@ export function SignupForm({ onSuccess, setLoading }: SignupFormProps) {
       return;
     }
 
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Signup failed');
+      // Check if user already exists
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.some((u: any) => u.email === email)) {
+        throw new Error('Email already in use');
       }
 
-      const data = await response.json();
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // Create new user
+      const newUser = {
+        id: Date.now().toString(),
+        name,
+        email,
+        password,
+      };
+
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('user', JSON.stringify({ email: newUser.email, id: newUser.id }));
       onSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');

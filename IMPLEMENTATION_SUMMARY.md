@@ -16,12 +16,10 @@ A comprehensive mental health and psychometric testing platform with clay morphi
 ### 2. Authentication System
 - **Login Page**: Email and password form with validation
 - **Signup Page**: Name, email, password with confirmation
-- **Password Security**: Bcrypt hashing with 12 rounds
-- **API Routes**: 
-  - `POST /api/auth/login` - User authentication
-  - `POST /api/auth/signup` - User registration
-- **Session Management**: localStorage-based with middleware protection
+- **Client-Side Storage**: localStorage-based user management (no database)
 - **Form Validation**: Real-time validation with error messages
+- **Session Management**: localStorage with automatic persistence
+- **User Data**: Stored locally with ID and email information
 
 ### 3. Psychometric Test (`/psychometric-test`)
 - **10 Questions**: Comprehensive mental health assessment
