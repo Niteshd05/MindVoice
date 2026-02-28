@@ -13,27 +13,32 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<ThemeType>('warm-earth');
-  const [mounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // Set mounted flag immediately
+    setIsMounted(true);
+
+    // Retrieve saved theme from localStorage
     const savedTheme = localStorage.getItem('mindvoice-theme') as ThemeType | null;
-    if (savedTheme) {
+    if (savedTheme && ['warm-earth', 'cool-slate', 'soft-lavender', 'sage-green'].includes(savedTheme)) {
       setTheme(savedTheme);
+      // Update document class immediately
+      document.documentElement.setAttribute('class', `theme-${savedTheme}`);
+    } else {
+      document.documentElement.setAttribute('class', 'theme-warm-earth');
     }
-    setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    localStorage.setItem('mindvoice-theme', theme);
-    document.documentElement.className = `theme-${theme}`;
-  }, [theme, mounted]);
-
-  if (!mounted) return <>{children}</>;
+  const handleThemeChange = (newTheme: ThemeType) => {
+    setTheme(newTheme);
+    localStorage.setItem('mindvoice-theme', newTheme);
+    document.documentElement.setAttribute('class', `theme-${newTheme}`);
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange }}>
+      {isMounted ? children : null}
     </ThemeContext.Provider>
   );
 }

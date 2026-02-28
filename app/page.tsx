@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { AnimatedOrb } from '@/components/3d/AnimatedOrb';
 import { ClayCard } from '@/components/ui/ClayCard';
 import { ClayButton } from '@/components/ui/ClayButton';
 import { AuthModal } from '@/components/auth/AuthModal';
+import { OrbFallback } from '@/components/3d/OrbFallback';
 
 const features = [
   {
@@ -161,7 +161,7 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.2 }}
               className="relative h-96 md:h-full min-h-96"
             >
-              <AnimatedOrb />
+              <OrbFallback />
             </motion.div>
           </div>
         </div>

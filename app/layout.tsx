@@ -37,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans antialiased theme-warm-earth`}>
+    <html lang="en" suppressHydrationWarning className="theme-warm-earth">
+      <body className="font-sans antialiased">
         <ThemeProvider>
           {children}
           <Analytics />
